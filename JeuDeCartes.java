@@ -10,7 +10,7 @@ import java.util.*;   // pour pouvoir utiliser Random
  * @version 2006-10-22
  */
 
-public class PaquetDeCartes {
+public class JeuDeCartes {
 
     /**
      * Initialise le processus aleatoire.  Un meme germe generera les memes cartes
@@ -38,6 +38,7 @@ public class PaquetDeCartes {
      * @return carte pigee (nombre entre 0 et NOMBRE_CARTES - 1)
      */
     public static int piger () {
+    	System.out.println();	
         int reponse;
         if ( nombreCartesPigees == NOMBRE_CARTES ) {
             // rebrasser les cartes
@@ -118,6 +119,6 @@ public class PaquetDeCartes {
     
     static {
         paquet = new int [ NOMBRE_CARTES ];
-        PaquetDeCartes.initialiserPaquet();
+        JeuDeCartes.initialiserPaquet();
     }
 } // PaquetDeCartes
