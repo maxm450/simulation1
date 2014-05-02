@@ -1,46 +1,110 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 /**
  * 
  * 
- * @author
- * @version 
+ * @author Piccolo
+ * @version 1.0
  */
 public class Tp2 {
+	
+	private static int montantJoueur = 100;
 
-    public static char lireOuiNon () {
+	public static void supprimerSauvegarde(){
+		File f = new File("sauvegarde.txt");
+		if(f.delete())
+			System.out.println("Suppression de la sauvegarde...\n");
+		else
+			System.out.println("Le fichier est en cours d'utilisation et ne peut √™tre supprim√©...");
+	}
+	
+	public static void sauvegarder(){
+		
+		BufferedWriter writer = null;
+		try
+		{
+		    writer = new BufferedWriter( new FileWriter("sauvegarde.txt"));
+		    writer.write(String.valueOf(montantJoueur));
+		    System.out.println("Partie sauvegardee...\n\nAu revoir!\n");
+
+		}
+		catch ( IOException e)
+		{
+		}
+		finally
+		{
+		    try
+		    {
+		        if ( writer != null)
+		        writer.close( );
+		    }
+		    catch ( IOException e)
+		    {
+		    }
+		}
+	}
+	
+	public static boolean existePartieSauvegardee(){
+		File f = new File("sauvegarde.txt");
+		return (f.exists() && !f.isDirectory());
+	}
+	
+	public static void restaurer(){
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File("sauvegarde.txt")));
+			String x = in.readLine();
+			setMontantJoueur(Integer.parseInt(x));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+    public static char lireOption () {
         
         char reponse;
         
-        System.out.print ( "Voulez-vous jouer une partie ? " );
+        System.out.print ( "Voulez-vous jouer une partie (p), enregistrer (e) ou quitter (q) ?" );
         reponse = Clavier.lireChar ();
         Clavier.lireFinLigne ();  
         
-        while ( reponse != 'o' && reponse != 'n' ) {
-            System.out.print ( "*** vous devez repondre par o ou n : " );
+        while ( reponse != 'p' && reponse != 'e' && reponse != 'q' ) {
+            System.out.print ( "*** vous devez repondre par p, e ou q : " );
             reponse = Clavier.lireChar ();
             Clavier.lireFinLigne ();
         }
         
         return reponse;
-    } // lireOuiNon
+    } // lireOption
     
     public static int lireSortePari () {
         
         int reponse;
         
         System.out.println ( "Quel pari voulez-vous faire ?" );
-        System.out.print ( " 1 : paire, 2 : sequence, 3 : meme couleur => " );
+        System.out.print ( " 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme    choix : " );
         reponse = Clavier.lireInt (); 
         
-        while ( reponse != 1 && reponse != 2 && reponse != 3 ) {
-            System.out.print ( "*** vous devez repondre par 1, 2 ou 3 : " );
+        while ( reponse != 1 && reponse != 2 && reponse != 3 && reponse != 4 ) {
+            System.out.print ( "*** vous devez repondre par 1, 2, 3 ou 4 : " );
             reponse = Clavier.lireInt ();
         }
         
         return reponse;
     } // lireSortePari
     
-    public static int lireMontantJoueur () {
+    /*public static int lireMontantJoueur () {
     
         int reponse;
         
@@ -53,7 +117,7 @@ public class Tp2 {
         }
         
         return reponse;
-    } // lireMontantJoueur
+    } // lireMontantJoueur*/
 
     public static int lireMiseJoueur ( int max ) {
     
@@ -72,8 +136,8 @@ public class Tp2 {
     
     public static int laSorte ( int carte ) {
         
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : retourne la valeur de la carte (0, 1, ... 12)
+    /* antÔøΩcÔøΩdent : 0 <= carte <= 51
+     * consÔøΩquent : retourne la valeur de la carte (0, 1, ... 12)
      *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
      */
     
@@ -83,8 +147,8 @@ public class Tp2 {
     
     public static int laCouleur ( int carte ) {
         
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : retourne la couleur de la carte (0, 1, 2, 3)
+    /* antÔøΩcÔøΩdent : 0 <= carte <= 51
+     * consÔøΩquent : retourne la couleur de la carte (0, 1, 2, 3)
      *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
      */
     
@@ -94,8 +158,8 @@ public class Tp2 {
     
     public static boolean estUnePaire ( int carte1, int carte2 ) { 
 
-    /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * conséquent : retourne vrai si carte1 et carte 2 constituent une paire,
+    /* antÔøΩcÔøΩdent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consÔøΩquent : retourne vrai si carte1 et carte 2 constituent une paire,
      *              faux sinon
      */
     
@@ -105,10 +169,10 @@ public class Tp2 {
 
     public static boolean sontMemeCouleur ( int carte1, int carte2 ) { 
 
-    /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * conséquent : retourne vrai si carte1 et carte 2 sont de la même
+    /* antÔøΩcÔøΩdent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consÔøΩquent : retourne vrai si carte1 et carte 2 sont de la mÔøΩme
      *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
-     *              trèfle et pique.
+     *              trÔøΩfle et pique.
      */
         
         return laCouleur ( carte1 ) == laCouleur ( carte2 );
@@ -117,11 +181,11 @@ public class Tp2 {
 
     public static boolean estUneSequence ( int carte1, int carte2 ) { 
 
-    /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * conséquent : retourne vrai si carte1 et carte 2 forment une séquence,
-     *              peu importe leur couleur, faux sinon.  Une séquence de
-     *              deux cartes sont deux cartes de valeur consécutive.  L'as
-     *              et le 2 sont considérées comme consécutives ainsi que l'as
+    /* antÔøΩcÔøΩdent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consÔøΩquent : retourne vrai si carte1 et carte 2 forment une sÔøΩquence,
+     *              peu importe leur couleur, faux sinon.  Une sÔøΩquence de
+     *              deux cartes sont deux cartes de valeur consÔøΩcutive.  L'as
+     *              et le 2 sont considÔøΩrÔøΩes comme consÔøΩcutives ainsi que l'as
      *              et le roi.
      */
     
@@ -134,6 +198,20 @@ public class Tp2 {
                sorte2 == 12 && sorte1 == 0;
                
     } // estUneSequence
+    
+    public static boolean sommeEgaleOuInferieureASept ( int carte1, int carte2 ) { 
+
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * consequent : retourne vrai si la somme de carte1 et carte2 est egale
+         *              ou inferieure a 7. Un As vaut 1, un valet vaut 11, une dame 
+         *              vaut 12, un roi vaut 13 et toutes les autres cartes valent 
+         *              leur nombre.
+         */
+        	System.out.println("Voici les cartes: " + (carte1 % 13 + 1) + " + " + (carte2 % 13 + 1) + " = " + ((carte1 % 13 + 1) + (carte2 % 13 + 1)));
+        
+            return laSorte ( carte1 ) + laSorte ( carte2 ) <= 7;
+                   
+        } // sommeEgaleOuInferieureASept
 
     public static String chaineCouleur ( int carte ) {
         
@@ -175,8 +253,8 @@ public class Tp2 {
     
     public static void afficherCarte ( int carte ) { 
 
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : Affiche la carte selon sa couleur et sa valeur
+    /* antÔøΩcÔøΩdent : 0 <= carte <= 51
+     * consÔøΩquent : Affiche la carte selon sa couleur et sa valeur
      */
     
         System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
@@ -203,18 +281,24 @@ public class Tp2 {
     } // afficherFin
 
     public static void initialiserJeuDeCarte () {
-        
+    	
+    	System.out.println("Nombre de credits : " + montantJoueur);
+    	System.out.println ();
         System.out.print ( "Entrez un nombre entier pour initialiser le jeu : " );
         JeuDeCartes.initialiserJeuDeCarte ( Clavier.lireInt () );
         System.out.println ();
+        JeuDeCartes.brasser();
         
     } // initialiserJeuDeCarte
+    
+    public static void setMontantJoueur(int montant){
+    	montantJoueur = montant;
+    }
 
     public static void main ( String[] parametres ) {
                 
         char    reponse;        // saisi : pour la reponse o ou n
         int     pari;           // saisi : pour la sorte de pari 1, 2 ou 3
-        int     montantJoueur;  // saisi puis ajuste : montant dont dispose le joueur
         int     montantGagne;   // calcule : montant gagne selon le pari effectue
         
         int     mise;           // saisi : montant mise par le joueur
@@ -226,19 +310,31 @@ public class Tp2 {
         
         // Initialiser le procede aleatoire
         
-        initialiserJeuDeCarte ();
-                
-        // Saisir et valider le montant initial du joueur
-        
-        montantJoueur = lireMontantJoueur ();
-        System.out.println ();
+        if (existePartieSauvegardee()){
+        	System.out.print("D√©sirez-vous reprendre la partie enregistr√©e ? (o/n) : ");
+        	reponse = Clavier.lireChar ();
+            Clavier.lireFinLigne ();
+            System.out.println();
+            
+            while ( reponse != 'o' && reponse != 'n') {
+                System.out.print ( "*** vous devez repondre par o ou n : " );
+                reponse = Clavier.lireChar ();
+                Clavier.lireFinLigne ();
+            }
+            
+            if ( reponse == 'o' )
+            	restaurer();
+            else
+            	supprimerSauvegarde();
+        }
+        initialiserJeuDeCarte();
         
         // Boucle pour les parties
         
-        reponse = lireOuiNon ();
+        reponse = lireOption ();
         System.out.println ();
         
-        while ( reponse == 'o' ) { 
+        while ( reponse == 'p' ) { 
             
             // saisie et validation du type de pari
             
@@ -253,11 +349,11 @@ public class Tp2 {
             montantJoueur = montantJoueur - mise;
             
             // faire piger deux cartes par l'ordinateur
-            
-            deuxCartes = JeuDeCartes.pigerDeuxCartes ();
-            
-            carte1 = deuxCartes / 100;
-            carte2 = deuxCartes % 100;
+            //deuxCartes = JeuDeCartes.pigerDeuxCartes ();
+            carte1 = JeuDeCartes.piger();
+            carte2 = JeuDeCartes.piger();
+            //carte1 = deuxCartes / 100;
+            //carte2 = deuxCartes % 100;
             
             afficherLesDeuxCartes ( carte1, carte2 );
             
@@ -267,13 +363,16 @@ public class Tp2 {
             
             if ( pari == 1 ) { // est-ce une paire ?
                 joueurGagne = estUnePaire ( carte1, carte2 );
-                montantGagne = 4 * mise;
+                montantGagne = 5 * mise;
             } else if ( pari == 2 ) { // est-ce une sequence ?
                 joueurGagne = estUneSequence ( carte1, carte2 );
-                montantGagne = 2 * mise;
-            } else { // deux de la meme couleur ?
+                montantGagne = 3 * mise;
+            } else if ( pari == 3) { // deux de la meme couleur ?
                 joueurGagne = sontMemeCouleur ( carte1, carte2 );
-                montantGagne = mise;
+                montantGagne = 2 * mise;
+            } else { // somme egale ou inferieure a 7 ?
+            	joueurGagne = sommeEgaleOuInferieureASept ( carte1, carte2 );
+            	montantGagne = 3 * mise;
             }
             
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
@@ -292,15 +391,18 @@ public class Tp2 {
             // determiner si on continue ou pas
             
             if ( montantJoueur > 0 ) {
-                reponse = lireOuiNon ();
+                reponse = lireOption ();
             } else {
                 System.out.println ( "Vous n'avez plus d'argent, vous ne pouvez continuer." );
                 reponse = 'n';
             }
 
         } // boucle de jeu
-        
-        afficherFin ( montantJoueur );
+        if ( reponse == 'e' ){
+        	sauvegarder();
+        }
+        else if ( reponse == 'q' )
+        	afficherFin ( montantJoueur );
         
     } // main
     
