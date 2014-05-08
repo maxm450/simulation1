@@ -13,4 +13,7 @@ public class PartiePaire implements Partie {
 		return carte1 == carte2;
 	}
 
+	public int mise(){
+		return 5;
+	}
 }

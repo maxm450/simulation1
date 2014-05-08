@@ -13,4 +13,9 @@ public class PartieInferieur7 implements Partie{
 		return carte1 + carte2 <= 7;
 	}
 
+	public int mise(){
+		return 3;
+	}
+
+
 }

@@ -22,7 +22,7 @@ public class Tp2 {
 		if(f.delete())
 			System.out.println("Suppression de la sauvegarde...\n");
 		else
-			System.out.println("Le fichier est en cours d'utilisation et ne peut Ãªtre supprimÃ©...");
+			System.out.println("Le fichier est en cours d'utilisation et ne peut être supprimé...");
 	}
 	
 	public static void sauvegarder(){
@@ -339,7 +339,7 @@ public class Tp2 {
         // Initialiser le procede aleatoire
         
         if (existePartieSauvegardee()){
-        	System.out.print("DÃ©sirez-vous reprendre la partie enregistrÃ©e ? (o/n) : ");
+        	System.out.print("Désirez-vous reprendre la partie enregistrée ? (o/n) : ");
         	reponse = Clavier.lireChar ();
             Clavier.lireFinLigne ();
             System.out.println();
@@ -398,21 +398,21 @@ public class Tp2 {
             if ( pari == 1 ) { // est-ce une paire ?
             	partie = new PartiePaire();
                 joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
-                montantGagne = 5 * mise;
+                montantGagne = partie.mise() * mise;
             } else if ( pari == 2 ) { // est-ce une sequence ?
             	partie = new PartieSequence();
                 joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
-                montantGagne = 3 * mise;
+                montantGagne = partie.mise() * mise;
             } else if ( pari == 3) { // deux de la meme couleur ?
             	partie = new PartieMemeCouleur();
                 joueurGagne = partie.partieEstGagnante( laCouleur(carte1), laCouleur(carte2) );
-                montantGagne = 2 * mise;
+                montantGagne = partie.mise() * mise;
             } else { // somme egale ou inferieure a 7 ?
             	System.out.println("Voici les cartes: " + (laSorte(carte1) + 1) + " + " + (laSorte(carte2) + 1) + " = " 
             				+ ((laSorte(carte1) + 1) + (laSorte(carte2) % 13 + 1)));
             	partie = new PartieInferieur7();
-            	joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
-            	montantGagne = 3 * mise;
+            	joueurGagne = partie.partieEstGagnante( laSorte(carte1) + 1, laSorte(carte2) + 1);
+            	montantGagne = partie.mise() * mise;
             }
             
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu

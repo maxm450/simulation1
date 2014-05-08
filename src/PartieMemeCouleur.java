@@ -13,4 +13,7 @@ public class PartieMemeCouleur implements Partie{
 		return carte1 == carte2;
 	}
 
+	public int mise(){
+		return 2;
+	}
 }
