@@ -306,6 +306,20 @@ public class Tp2 {
         
     } // initialiserJeuDeCarte
     
+    /*Amélioration apportée
+     * avant affichage dans le main
+     * maintenant le main apelle cette fonction
+     */
+    public static void joueurGagnant(boolean gagant, int montantGagne){
+    	if ( gagant ) {
+            System.out.println ( "Bravo ! Vous avez gagne " + montantGagne + " $" );
+            montantJoueur = montantJoueur + montantGagne;
+        } else {
+            System.out.println ( "Desole ! Vous avez perdu votre mise !" );
+        }
+    	
+    }
+    
     public static void setMontantJoueur(int montant){
     	montantJoueur = montant;
     }
@@ -315,7 +329,7 @@ public class Tp2 {
         char    reponse;        // saisi : pour la reponse o ou n
         int     pari;           // saisi : pour la sorte de pari 1, 2 ou 3
         int     montantGagne;   // calcule : montant gagne selon le pari effectue
-        Partie partie;
+        Partie partie;			// 
         int     mise;           // saisi : montant mise par le joueur
         int     carte1;         // la premiere carte pigee
         int     carte2;         // la deuxieme carte pigee
@@ -364,8 +378,10 @@ public class Tp2 {
             
             // faire piger deux cartes par l'ordinateur
             //deuxCartes = JeuDeCartes.pigerDeuxCartes ();
+            
             carte1 = JeuDeCartes.piger();
             carte2 = JeuDeCartes.piger();
+            
             //carte1 = deuxCartes / 100;
             //carte2 = deuxCartes % 100;
             
@@ -375,38 +391,33 @@ public class Tp2 {
             
             joueurGagne = false;
             /*
-             * am/lioration apporte
+             * Amélioration apportée
              * rajout de la varibale partie
              * rajout de la fonction de verification pour chauqe type de partie
              */
             if ( pari == 1 ) { // est-ce une paire ?
             	partie = new PartiePaire();
-                joueurGagne = partie.estGagant( laSorte(carte1), laSorte(carte2));
+                joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
                 montantGagne = 5 * mise;
             } else if ( pari == 2 ) { // est-ce une sequence ?
             	partie = new PartieSequence();
-                joueurGagne = partie.estGagant( laSorte(carte1), laSorte(carte2));
+                joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
                 montantGagne = 3 * mise;
             } else if ( pari == 3) { // deux de la meme couleur ?
             	partie = new PartieMemeCouleur();
-                joueurGagne = partie.estGagant( laCouleur(carte1), laCouleur(carte2) );
+                joueurGagne = partie.partieEstGagnante( laCouleur(carte1), laCouleur(carte2) );
                 montantGagne = 2 * mise;
             } else { // somme egale ou inferieure a 7 ?
             	System.out.println("Voici les cartes: " + (laSorte(carte1) + 1) + " + " + (laSorte(carte2) + 1) + " = " 
             				+ ((laSorte(carte1) + 1) + (laSorte(carte2) % 13 + 1)));
             	partie = new PartieInferieur7();
-            	joueurGagne = partie.estGagant( laSorte(carte1), laSorte(carte2));
+            	joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
             	montantGagne = 3 * mise;
             }
             
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             
-            if ( joueurGagne ) {
-                System.out.println ( "Bravo ! Vous avez gagne " + montantGagne + " $" );
-                montantJoueur = montantJoueur + montantGagne;
-            } else {
-                System.out.println ( "Desole ! Vous avez perdu votre mise !" );
-            }
+            joueurGagnant(joueurGagne, montantGagne);
             
             System.out.println ();
             System.out.println ( "Vous disposez maintenant de " + montantJoueur + " $" );
