@@ -62,6 +62,7 @@ public class Tp2 {
 			BufferedReader in = new BufferedReader(new FileReader(new File("sauvegarde.txt")));
 			String x = in.readLine();
 			setMontantJoueur(Integer.parseInt(x));
+			in.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -257,7 +258,7 @@ public class Tp2 {
      * cons�quent : Affiche la carte selon sa couleur et sa valeur
      */
     
-        System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
+        System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur(carte)) ;
         
     } // afficherCarte
     
