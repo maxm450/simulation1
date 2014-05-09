@@ -65,10 +65,8 @@ public class Tp2 {
 			setMontantJoueur(Integer.parseInt(x));
 			in.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -106,20 +104,11 @@ public class Tp2 {
         return reponse;
     } // lireSortePari
     
-    /*public static int lireMontantJoueur () {
-    
-        int reponse;
-        
-        System.out.print ( "Entrez le montant dont vous disposez : " );
-        reponse = Clavier.lireInt();
-        
-        while ( reponse <= 0 ) {
-            System.out.print ( "*** Le montant doit etre superieur a 0 : " );
-            reponse = Clavier.lireInt();
-        }
-        
-        return reponse;
-    } // lireMontantJoueur*/
+    /*Amélioration apportée
+     * function lireMontantJoueur  
+     * maintenat le joueur commence soit avec 100 jetons ou bien 
+     * il reprend une partie souvegarder
+     */
 
     public static int lireMiseJoueur ( int max ) {
     
@@ -164,63 +153,14 @@ public class Tp2 {
      * cette fonction est maintenant située dans la classe PartieSequence
     */
     
-    public static String chaineCouleur ( int carte ) {
-        String reponse;
-        
-        int couleur = JeuDeCartes.couleur ( carte );
-        if (couleur == 0) {
-            reponse = "coeur";
-        } else if (couleur == 1) {
-            reponse = "carreau";
-        } else if (couleur == 2) {
-            reponse = "trefle";
-        } else {
-            reponse = "pique";
-        }
-        
-        return reponse;
-    } // chaineCouleur
-    
-    public static String chaineSorte ( int carte ) {
-        
-        String reponse;
-        
-        int sorte = JeuDeCartes.valeur ( carte ) - 1;
-        if (sorte == 0) {
-            reponse = "as";
-        } else if (sorte == 10) {
-            reponse = "valet";
-        } else if (sorte == 11) {
-            reponse = "dame";
-        } else if (sorte == 12) {
-            reponse = "roi";
-        } else {
-            reponse = String.valueOf ( sorte + 1 );
-        }
-        
-        return reponse;
-    } // chaineCouleur
-    
-    public static void afficherCarte ( int carte ) { 
-
-    /* antï¿½cï¿½dent : 0 <= carte <= 51
-     * consï¿½quent : Affiche la carte selon sa couleur et sa valeur
+    /*
+     * Amélioration apportée
+     * function chaineCouleur, function chaineSorte et function afficherCarte
+     * maintenant function gui qui permet d<afficher la valeur ainsi que la sorte de la carte
      */
-    
-        System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur(carte)) ;
-        
-    } // afficherCarte
     
     public static void afficherLesDeuxCartes ( int carte1, int carte2 ) {
         GUI.afficherCartes(carte1, carte2);   
-        /*System.out.print ( "Voici la premiere carte : " );
-        afficherCarte ( carte1 );
-        System.out.println ();
-            
-        System.out.print ( "Voici la deuxieme carte : " );
-        afficherCarte ( carte2 );
-        System.out.println ( '\n' );*/
-            
     } // afficherLesDeuxCartes
 
     public static void afficherFin () {
@@ -277,14 +217,17 @@ public class Tp2 {
                 partie = new PartiePaire();
                 joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1) - 1, JeuDeCartes.valeur(carte2) - 1);
                 montantGagne = partie.mise() * mise;
+                
             } else if ( parie == 2 ) { // est-ce une sequence ?
                 partie = new PartieSequence();
                 joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1) -1, JeuDeCartes.valeur(carte2) -1);
                 montantGagne = partie.mise() * mise;
+                
             } else if ( parie == 3) { // deux de la meme couleur ?
                 partie = new PartieMemeCouleur();
                 joueurGagne = partie.partieEstGagnante( JeuDeCartes.couleur(carte1), JeuDeCartes.couleur(carte2) );
                 montantGagne = partie.mise() * mise;
+                
             } else { // somme egale ou inferieure a 7 ?
                 System.out.println("Voici les cartes: " + JeuDeCartes.valeur(carte1) + " + " + JeuDeCartes.valeur(carte2) + " = " 
                             + (JeuDeCartes.valeur(carte1) + JeuDeCartes.valeur(carte2)));
