@@ -1,15 +1,15 @@
 
 public class PartieInferieur7 implements Partie{
 
-	@Override
+	
 	/*
 	 * (non-Javadoc)
 	 * @see Partie#estGagant(int, int)
 	 * @param1 valeur carte1
 	 * @param2 valeur carte2
 	 */
-	public boolean estGagant(int carte1, int carte2) {
-		// TODO Auto-generated method stub
+	public boolean partieEstGagnante(int carte1, int carte2) {
+
 		return carte1 + carte2 <= 7;
 	}
 

@@ -14,8 +14,12 @@ import java.util.StringTokenizer;
  * @version 1.0
  */
 public class Tp2 {
-	
+	/* Amélioration apportée
+    */
 	private static int montantJoueur = 100;
+    private static boolean joueurGagne;    // si le joueur a gagne ou non la partie 
+    private static int montantGagne; // calcule : montant gagne selon le pari effectue
+    private static int mise; // saisi : montant mise par le joueur
 
 	public static void supprimerSauvegarde(){
 		File f = new File("sauvegarde.txt");
@@ -135,104 +139,38 @@ public class Tp2 {
         return reponse;
     } // lireMiseJoueur
     
-    public static int laSorte ( int carte ) {
-        
-    /* antï¿½cï¿½dent : 0 <= carte <= 51
-     * consï¿½quent : retourne la valeur de la carte (0, 1, ... 12)
-     *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
+    
+    /*Amélioration apportée
+     * function laSorte
+     * cette function est remplacée par celle de la classe JeuDeCartes
      */
     
-        return carte % 13;
-        
-    } // laSorte
-    
-    public static int laCouleur ( int carte ) {
-        
-    /* antï¿½cï¿½dent : 0 <= carte <= 51
-     * consï¿½quent : retourne la couleur de la carte (0, 1, 2, 3)
-     *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
+    /*Amélioration apportée
+     * function laCouleur
+     * cette function est remplacée par celle de la classe JeuDeCartes
      */
     
-        return carte / 13;
-        
-    } // laCouleur
     
     /* Amélioration apportée
+     * function estUnePaire
      * cette fonction est maintenant située dans la classe PartiePair
-     * public static boolean estUnePaire ( int carte1, int carte2 ) { 
-
-     * antï¿½cï¿½dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consï¿½quent : retourne vrai si carte1 et carte 2 constituent une paire,
-     *              faux sinon
-     *
-    
-     *return laSorte ( carte1 ) == laSorte ( carte2 );
-      
-     * } // estUnePaire
      */
 
     /*
      * Amélioration apportée
+     * function sontMemeCouleur
      * cette fonction est maintenant situ/ dans la classe PartieMemeCouleur
-     * 
-     * 
-     *public static boolean sontMemeCouleur ( int carte1, int carte2 ) { 
-
-     * antï¿½cï¿½dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consï¿½quent : retourne vrai si carte1 et carte 2 sont de la mï¿½me
-     *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
-     *              trï¿½fle et pique.
-     *
-        
-     *return laCouleur ( carte1 ) == laCouleur ( carte2 );
-        
-     *} // sontMemeCouleur
 	*/
     
     /* Amélioration apportée
-     * cette fonction est maintenant situ/ dans la classe PartieSequence
-     * public static boolean estUneSequence ( int carte1, int carte2 ) { 
-	 *
-     * antï¿½cï¿½dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consï¿½quent : retourne vrai si carte1 et carte 2 forment une sï¿½quence,
-     *              peu importe leur couleur, faux sinon.  Une sï¿½quence de
-     *              deux cartes sont deux cartes de valeur consï¿½cutive.  L'as
-     *              et le 2 sont considï¿½rï¿½es comme consï¿½cutives ainsi que l'as
-     *              et le roi.
-     *
-    
-        int sorte1 = laSorte ( carte1 );
-        int sorte2 = laSorte ( carte2 );
-    
-        return sorte1 == sorte2 + 1 || 
-               sorte1 == sorte2 - 1 ||
-               sorte1 == 12 && sorte2 == 0 ||    // as et roi
-               sorte2 == 12 && sorte1 == 0;
-               
-    	} // estUneSequence
+     * function estUneSequence
+     * cette fonction est maintenant située dans la classe PartieSequence
     */
     
-    /*
-    public static boolean sommeEgaleOuInferieureASept ( int carte1, int carte2 ) { 
-
-        * antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-         * consequent : retourne vrai si la somme de carte1 et carte2 est egale
-         *              ou inferieure a 7. Un As vaut 1, un valet vaut 11, une dame 
-         *              vaut 12, un roi vaut 13 et toutes les autres cartes valent 
-         *              leur nombre.
-         *
-        	System.out.println("Voici les cartes: " + (carte1 % 13 + 1) + " + " + (carte2 % 13 + 1) + " = " + ((carte1 % 13 + 1) + (carte2 % 13 + 1)));
-        
-            return laSorte ( carte1 ) + laSorte ( carte2 ) + 2 <= 7;
-                   
-        } // sommeEgaleOuInferieureASept
-      */
-    
     public static String chaineCouleur ( int carte ) {
-        
         String reponse;
         
-        int couleur = laCouleur ( carte );
+        int couleur = JeuDeCartes.couleur ( carte );
         if (couleur == 0) {
             reponse = "coeur";
         } else if (couleur == 1) {
@@ -250,7 +188,7 @@ public class Tp2 {
         
         String reponse;
         
-        int sorte = laSorte ( carte );
+        int sorte = JeuDeCartes.valeur ( carte ) - 1;
         if (sorte == 0) {
             reponse = "as";
         } else if (sorte == 10) {
@@ -288,10 +226,10 @@ public class Tp2 {
             
     } // afficherLesDeuxCartes
 
-    public static void afficherFin ( int montant ) {
+    public static void afficherFin () {
         
         System.out.println ( "Merci d'avoir joue avec moi !" );
-        System.out.println ( "Vous quittez avec " + montant + " $ en poche." );
+        System.out.println ( "Vous quittez avec " + montantJoueur + " $ en poche." );
         
     } // afficherFin
 
@@ -324,17 +262,43 @@ public class Tp2 {
     	montantJoueur = montant;
     }
 
+    /* Amélioration apportée
+     * rajout de la varibale partie
+     * rajout de la fonction de verification pour chauqe type de partie
+     * rajout de la finction mise 
+    */
+    public static void pariFait(int parie, int carte1, int carte2){
+        Partie partie;
+
+        if ( parie == 1 ) { // est-ce une paire ?
+                partie = new PartiePaire();
+                joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1) - 1, JeuDeCartes.valeur(carte2) - 1);
+                montantGagne = partie.mise() * mise;
+            } else if ( parie == 2 ) { // est-ce une sequence ?
+                partie = new PartieSequence();
+                joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1) -1, JeuDeCartes.valeur(carte2) -1);
+                montantGagne = partie.mise() * mise;
+            } else if ( parie == 3) { // deux de la meme couleur ?
+                partie = new PartieMemeCouleur();
+                joueurGagne = partie.partieEstGagnante( JeuDeCartes.couleur(carte1), JeuDeCartes.couleur(carte2) );
+                montantGagne = partie.mise() * mise;
+            } else { // somme egale ou inferieure a 7 ?
+                System.out.println("Voici les cartes: " + JeuDeCartes.valeur(carte1) + " + " + JeuDeCartes.valeur(carte2) + " = " 
+                            + (JeuDeCartes.valeur(carte1) + JeuDeCartes.valeur(carte2)));
+                partie = new PartieInferieur7();
+                joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1), JeuDeCartes.valeur(carte2));
+                montantGagne = partie.mise() * mise;
+            }
+
+    }
+
     public static void main ( String [] arg ) {
                 
         char    reponse;        // saisi : pour la reponse o ou n
         int     pari;           // saisi : pour la sorte de pari 1, 2 ou 3
-        int     montantGagne;   // calcule : montant gagne selon le pari effectue
-        Partie partie;			// 
-        int     mise;           // saisi : montant mise par le joueur
+        			 
         int     carte1;         // la premiere carte pigee
         int     carte2;         // la deuxieme carte pigee
-        
-        boolean joueurGagne;    // si le joueur a gagne ou non la partie 
         
         // Initialiser le procede aleatoire
         
@@ -390,31 +354,12 @@ public class Tp2 {
             // determiner si le joueur a gagne ou perdu
             
             joueurGagne = false;
-            /*
-             * Amélioration apportée
-             * rajout de la varibale partie
-             * rajout de la fonction de verification pour chauqe type de partie
-             */
-            if ( pari == 1 ) { // est-ce une paire ?
-            	partie = new PartiePaire();
-                joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
-                montantGagne = partie.mise() * mise;
-            } else if ( pari == 2 ) { // est-ce une sequence ?
-            	partie = new PartieSequence();
-                joueurGagne = partie.partieEstGagnante( laSorte(carte1), laSorte(carte2));
-                montantGagne = partie.mise() * mise;
-            } else if ( pari == 3) { // deux de la meme couleur ?
-            	partie = new PartieMemeCouleur();
-                joueurGagne = partie.partieEstGagnante( laCouleur(carte1), laCouleur(carte2) );
-                montantGagne = partie.mise() * mise;
-            } else { // somme egale ou inferieure a 7 ?
-            	System.out.println("Voici les cartes: " + (laSorte(carte1) + 1) + " + " + (laSorte(carte2) + 1) + " = " 
-            				+ ((laSorte(carte1) + 1) + (laSorte(carte2) % 13 + 1)));
-            	partie = new PartieInferieur7();
-            	joueurGagne = partie.partieEstGagnante( laSorte(carte1) + 1, laSorte(carte2) + 1);
-            	montantGagne = partie.mise() * mise;
-            }
             
+            /* Amélioration apportée
+             * rajout de la function parie
+             */
+            pariFait(pari, carte1, carte2);
+
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             
             joueurGagnant(joueurGagne, montantGagne);
@@ -437,7 +382,7 @@ public class Tp2 {
         	sauvegarder();
         }
         else if ( reponse == 'q' )
-        	afficherFin ( montantJoueur );
+        	afficherFin ();
         
     } // main
     
