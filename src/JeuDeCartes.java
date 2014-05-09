@@ -8,6 +8,8 @@ import java.util.*;   // pour pouvoir utiliser Random
  * 
  * @author Louise Laforest 
  * @version 2006-10-22
+ * 
+ * Equipe Piccolo
  */
 
 public class JeuDeCartes {

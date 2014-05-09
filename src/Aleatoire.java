@@ -5,6 +5,8 @@ import java.util.*;
  * 
  * @author Louise Laforest 
  * @version octobre 2008
+ * 
+ * Equipe Piccolo
  */
 public class Aleatoire {
 

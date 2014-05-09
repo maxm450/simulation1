@@ -1,4 +1,6 @@
-
+/*
+ * Equipe Piccolo
+ */
 public class PartiePaire implements Partie {
 
 	/*

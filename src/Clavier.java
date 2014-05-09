@@ -10,7 +10,7 @@ import java.io.*;
  * Modifications : 2004/10/07 - ajout de viderTampon()
  *               : 2005/08/25 - ajout des methodes ...Ln()
  *
- *Équipe Piccolo
+ *Equipe Piccolo
  *
  **********************************************************/
  

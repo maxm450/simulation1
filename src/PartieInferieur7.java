@@ -1,4 +1,6 @@
-
+/*
+ * Equipe Piccolo
+ */
 public class PartieInferieur7 implements Partie{
 
 	

@@ -5,11 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 /**
- * 
- * 
  * @author Piccolo
  * @version 1.0
  */
@@ -84,7 +81,7 @@ public class Tp2 {
         reponse = Clavier.lireChar ();
         Clavier.lireFinLigne ();  
         
-        while ( reponse != 'p' && reponse != 'e' && reponse != 'q' ) {
+        while ( reponse != 'p' && reponse != 'e' && reponse != 'q' && reponse != 'P' && reponse != 'E' && reponse != 'Q') {
             System.out.print ( "*** vous devez repondre par p, e ou q : " );
             reponse = Clavier.lireChar ();
             Clavier.lireFinLigne ();
@@ -215,14 +212,14 @@ public class Tp2 {
     } // afficherCarte
     
     public static void afficherLesDeuxCartes ( int carte1, int carte2 ) {
-                          
-        System.out.print ( "Voici la premiere carte : " );
+        GUI.afficherCartes(carte1, carte2);   
+        /*System.out.print ( "Voici la premiere carte : " );
         afficherCarte ( carte1 );
         System.out.println ();
             
         System.out.print ( "Voici la deuxieme carte : " );
         afficherCarte ( carte2 );
-        System.out.println ( '\n' );
+        System.out.println ( '\n' );*/
             
     } // afficherLesDeuxCartes
 
@@ -235,10 +232,16 @@ public class Tp2 {
 
     public static void initialiserJeuDeCarte () {
     	
+    	int reponse;
     	System.out.println("Nombre de credits : " + montantJoueur);
     	System.out.println ();
-        System.out.print ( "Entrez un nombre entier pour initialiser le jeu : " );
-        JeuDeCartes.initialiserJeuDeCarte ( Clavier.lireInt () );
+        System.out.print ( "Entrez un nombre entier positif pour initialiser le jeu : " );
+        reponse = Clavier.lireInt ();
+        while ( reponse < 0 ) {
+        	System.out.print ( "*** Le nombre doit etre un entier positif : " );
+        	reponse = Clavier.lireInt();
+        }
+        JeuDeCartes.initialiserJeuDeCarte ( reponse );
         System.out.println ();
         JeuDeCartes.brasser();
         
@@ -308,13 +311,13 @@ public class Tp2 {
             Clavier.lireFinLigne ();
             System.out.println();
             
-            while ( reponse != 'o' && reponse != 'n') {
+            while ( reponse != 'o' && reponse != 'n' && reponse != 'O' && reponse != 'N' ) {
                 System.out.print ( "*** vous devez repondre par o ou n : " );
                 reponse = Clavier.lireChar ();
                 Clavier.lireFinLigne ();
             }
             
-            if ( reponse == 'o' )
+            if ( reponse == 'o' || reponse == 'O' )
             	restaurer();
             else
             	supprimerSauvegarde();
@@ -326,7 +329,7 @@ public class Tp2 {
         reponse = lireOption ();
         System.out.println ();
         
-        while ( reponse == 'p' ) { 
+        while ( reponse == 'p' || reponse == 'P' ) { 
             
             // saisie et validation du type de pari
             
@@ -378,11 +381,11 @@ public class Tp2 {
             }
 
         } // boucle de jeu
-        if ( reponse == 'e' ){
+        if ( reponse == 'e' || reponse == 'E' ){
         	sauvegarder();
         }
-        else if ( reponse == 'q' )
-        	afficherFin ();
+        else if ( reponse == 'q' || reponse == 'Q' )
+        	afficherFin();
         
     } // main
     
