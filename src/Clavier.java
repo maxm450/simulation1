@@ -1,6 +1,6 @@
 import java.io.*;
 
-/**********************************************************
+/**************************SOURCE**************************
  * U Q A M   -   I N F 1 1 2 0   e t   I N F 2 1 2 0
  *
  * Classe permettant l'entree simple au clavier (console).
@@ -9,6 +9,9 @@ import java.io.*;
  * Creation      : 2004/08/18
  * Modifications : 2004/10/07 - ajout de viderTampon()
  *               : 2005/08/25 - ajout des methodes ...Ln()
+ *
+ *√âquipe Piccolo
+ *
  **********************************************************/
  
 /*
@@ -20,8 +23,8 @@ import java.io.*;
  *   criteres suivants est rencontre :
  *
  *   - C'est un caractere Unicode espace (SPACE_SEPARATOR, LINE_SEPARATOR,
- *      ou PARAGRAPH_SEPARATOR) mais n'est pas aussi un caractère espace
- *      non-sécable ('\u00A0', '\u2007', '\u202F'). 
+ *      ou PARAGRAPH_SEPARATOR) mais n'est pas aussi un caractÔøΩre espace
+ *      non-sÔøΩcable ('\u00A0', '\u2007', '\u202F'). 
  *   - C'est '\u0009', HORIZONTAL TABULATION.
  *   - C'est '\u000A', LINE FEED.                 LF
  *   - C'est '\u000B', VERTICAL TABULATION.
@@ -194,12 +197,21 @@ public class Clavier {
      *              Le nombre peut commencer par - (negatif) mais ne
      *              peut commencer par +.
      */
-    
-        return Integer.parseInt( lireMot() );
-        
+    	int result = 0;
+        try
+        {
+           result = Integer.parseInt( lireMot() );
+        }
+        catch(NumberFormatException e)
+        {
+           result = -1;
+        }
+      
+         	return result;
     } // lireInt
 
     public static int lireIntLn() { 
+    	
     
     /* antecedent : -
      * consequent : retourne le nombre entier lu, a partir du
