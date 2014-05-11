@@ -120,7 +120,20 @@ public class JeuDeCartes {
     }
     
     static {
-        paquet = new int [ NOMBRE_CARTES ];
+    	paquet = new int [ NOMBRE_CARTES ];
         JeuDeCartes.initialiserPaquet();
     }
+    
+	public Random getGenerateur() {
+    	return generateur;
+    }
+	
+	public static int[] getPaquet() {
+		return paquet;
+	} 
+
+    
+    
+    
+    
 } // PaquetDeCartes
