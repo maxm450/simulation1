@@ -27,6 +27,8 @@ public class JeuDeCartesTest {
 		boolean isAsc = true;
 		boolean isDsc = true;
 		final int [] tab = jeuRef.getPaquet();
+        JeuDeCartes.setNombrePige(0);
+		JeuDeCartes.brasser();
 		for(int i = 1; i < tab.length; i++){
 			if (tab[i] < tab[0] ) {
 				isAsc &= false;
@@ -35,8 +37,7 @@ public class JeuDeCartesTest {
 			}
 		}
 		
-		assertFalse(isAsc);
-		assertFalse(isDsc);
+		assertFalse(isAsc ^ isDsc);
 						
 	}
 
@@ -52,31 +53,47 @@ public class JeuDeCartesTest {
 		
 		for( int i = 1; i < tab.length; i++){
 			assertTrue(res != JeuDeCartes.piger());
-		}
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 		
 	}
 
 	@Test
 	public void testCarteValide() {
-		fail("Not yet implemented");
+		
+		for (int carte = 0; carte < JeuDeCartes.getNombreDeCarte() + 20; carte++) {
+			if (carte < 0 || carte > JeuDeCartes.getNombreDeCarte()) {
+				assertFalse(JeuDeCartes.carteValide(carte));
+			} else if (carte >= 0 && carte < JeuDeCartes.getNombreDeCarte()) {
+				assertTrue(JeuDeCartes.carteValide(carte));
+			}
+		}
+			
 	}
 
 	@Test
 	public void testCouleur() {
-		fail("Not yet implemented");
+
+		for (int carte = 0; carte < JeuDeCartes.getNombreDeCarte() + 20; carte++) {
+			if (carte < 0 || carte > JeuDeCartes.getNombreDeCarte()) { // Carte invalide
+				assertTrue(JeuDeCartes.couleur(carte) == -1);
+			} else if (carte >= 0 && carte < JeuDeCartes.getNombreDeCarte()) { // carte valide
+				assertTrue(JeuDeCartes.couleur(carte) >=0 && JeuDeCartes.couleur(carte) <= 3 );
+			}
+		}
+		
 	}
 
 	@Test
 	public void testValeur() {
-		fail("Not yet implemented");
+		
+		for (int carte = 0; carte < JeuDeCartes.getNombreDeCarte() + 20; carte++) {
+			if (carte < 0 || carte > JeuDeCartes.getNombreDeCarte()) { // Carte invalide
+				assertTrue(JeuDeCartes.valeur(carte) == -1);
+			} else if (carte >= 0 && carte < JeuDeCartes.getNombreDeCarte()) { // carte valide
+				assertTrue(JeuDeCartes.valeur(carte) >= 0 && JeuDeCartes.valeur(carte) <= 13 );
+			}
+		}
+		
 	}
 	
 	

@@ -131,8 +131,15 @@ public class JeuDeCartes {
 	public static int[] getPaquet() {
 		return paquet;
 	} 
+	
+	public static int getNombreDeCarte(){
+		return NOMBRE_CARTES;
+	}
+	
 
-    
+    public static void setNombrePige(int anInt) {
+    	nombreCartesPigees = 0;
+    }
     
     
     

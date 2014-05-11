@@ -38,4 +38,8 @@ public class Aleatoire {
         return lancerUnDe ( 6 );
     } // lancerUnDe6
     
+    public Random getGenerateur() {
+    	return generateur;
+    }
+    
 } // Aleatoire
