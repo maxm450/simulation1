@@ -42,6 +42,26 @@ public class JeuDeCartesTest {
 
 	@Test
 	public void testPiger() {
+		 
+		final JeuDeCartes jeuRef = new JeuDeCartes();
+		int [] tab = jeuRef.getPaquet();
+		int res;
+		
+		res = JeuDeCartes.piger();
+		assertTrue(res >= 0 && res < JeuDeCartes.getNombreDeCarte());
+		
+		for( int i = 1; i < tab.length; i++){
+			assertTrue(res != JeuDeCartes.piger());
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@Test
