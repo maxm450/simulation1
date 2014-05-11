@@ -40,8 +40,8 @@ public class AleatoireTest {
 		z = Aleatoire.lancerUnDe6();
 		
 		for (int i= 0; i < 100; i++) {
-		assertTrue ( z > 0 && z <= 6  );
-		assertFalse( z < 1 && z > 6);
+		   assertTrue ( z > 0 && z <= 6  );
+		   assertFalse( z < 1 && z > 6);
 		}
 		
 	}
