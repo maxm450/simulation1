@@ -320,15 +320,17 @@ public class Tp2 {
                 reponse = lireOption ();
             } else {
                 System.out.println ( "Vous n'avez plus d'argent, vous ne pouvez continuer." );
-                reponse = 'n';
+                reponse = 'q';
             }
 
         } // boucle de jeu
         if ( reponse == 'e' || reponse == 'E' ){
         	sauvegarder();
         }
-        else if ( reponse == 'q' || reponse == 'Q' )
+        else if ( reponse == 'q' || reponse == 'Q' ) {
         	afficherFin();
+        }
+        System.exit(-1);
         
     } // main
     
