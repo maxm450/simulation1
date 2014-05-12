@@ -20,10 +20,7 @@ public class Tp2 {
 
 	public static void supprimerSauvegarde(){
 		File f = new File("sauvegarde.txt");
-		if(f.delete())
-			System.out.println("Suppression de la sauvegarde...\n");
-		else
-			System.out.println("Le fichier est en cours d'utilisation et ne peut être supprimé...");
+		f.delete();
 	}
 	
 	public static void sauvegarder(){
@@ -173,8 +170,6 @@ public class Tp2 {
     public static void initialiserJeuDeCarte () {
     	
     	int reponse;
-    	System.out.println("Nombre de credits : " + montantJoueur);
-    	System.out.println ();
         System.out.print ( "Entrez un nombre entier positif pour initialiser le jeu : " );
         reponse = Clavier.lireInt ();
         while ( reponse < 0 ) {
@@ -201,8 +196,19 @@ public class Tp2 {
     	
     }
     
+    /* Amélioration apportée
+	 * methode pour mettre l'argent du joueur dans la variable de classe
+	 */
     public static void setMontantJoueur(int montant){
     	montantJoueur = montant;
+    }
+    
+    /* Amélioration apportée
+	 * methode pour afficher la somme des cartes
+	 */
+    public static void afficherSommeCarte(int carte1, int carte2){
+    	System.out.println("Voici les cartes: " + JeuDeCartes.valeur(carte1) + " + " + JeuDeCartes.valeur(carte2) + " = " 
+                + (JeuDeCartes.valeur(carte1) + JeuDeCartes.valeur(carte2)));
     }
 
     /* Amélioration apportée
@@ -228,14 +234,19 @@ public class Tp2 {
                 joueurGagne = partie.partieEstGagnante( JeuDeCartes.couleur(carte1), JeuDeCartes.couleur(carte2) );
                 montantGagne = partie.mise() * mise;
                 
-            } else { // somme egale ou inferieure a 7 ?
-                System.out.println("Voici les cartes: " + JeuDeCartes.valeur(carte1) + " + " + JeuDeCartes.valeur(carte2) + " = " 
-                            + (JeuDeCartes.valeur(carte1) + JeuDeCartes.valeur(carte2)));
+            } else { // somme egale ou inferieure a 7 
                 partie = new PartieInferieur7();
                 joueurGagne = partie.partieEstGagnante( JeuDeCartes.valeur(carte1), JeuDeCartes.valeur(carte2));
                 montantGagne = partie.mise() * mise;
             }
 
+    }
+    
+    /* Amélioration apportée
+	 * le jeu affiche le montant du joueur au depart
+	 */
+    public static void afficherMontantJoueur(){
+    	System.out.println ( "Vous disposez maintenant de " + montantJoueur + " $" );
     }
 
     public static void main ( String [] arg ) {
@@ -247,6 +258,7 @@ public class Tp2 {
         int     carte2;         // la deuxieme carte pigee
         
         // Initialiser le procede aleatoire
+        initialiserJeuDeCarte();
         
         if (existePartieSauvegardee()){
         	System.out.print("Désirez-vous reprendre la partie enregistrée ? (o/n) : ");
@@ -264,16 +276,18 @@ public class Tp2 {
             	restaurer();
             else
             	supprimerSauvegarde();
-        }
-        initialiserJeuDeCarte();
+        } 
         
         // Boucle pour les parties
         
-        reponse = lireOption ();
+        reponse = 'p';
         System.out.println ();
         
         while ( reponse == 'p' || reponse == 'P' ) { 
-            
+        	/* Amélioration apportée
+        	 * le jeu affiche le montant du joueur au depart
+        	 */
+        	afficherMontantJoueur();
             // saisie et validation du type de pari
             
             pari = lireSortePari ();
@@ -296,6 +310,8 @@ public class Tp2 {
             //carte2 = deuxCartes % 100;
             
             afficherLesDeuxCartes ( carte1, carte2 );
+            afficherSommeCarte(carte1, carte2);
+            
             
             // determiner si le joueur a gagne ou perdu
             
@@ -311,7 +327,6 @@ public class Tp2 {
             joueurGagnant(joueurGagne, montantGagne);
             
             System.out.println ();
-            System.out.println ( "Vous disposez maintenant de " + montantJoueur + " $" );
             System.out.println ();
             
             // determiner si on continue ou pas
@@ -329,6 +344,7 @@ public class Tp2 {
         }
         else if ( reponse == 'q' || reponse == 'Q' ) {
         	afficherFin();
+        	supprimerSauvegarde();
         }
         System.exit(-1);
         
