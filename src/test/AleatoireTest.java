@@ -8,7 +8,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import projet.Aleatoire;
+import util.Aleatoire;
 
 
 public class AleatoireTest {

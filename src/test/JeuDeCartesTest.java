@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import projet.JeuDeCartes;
+import util.JeuDeCartes;
 
 
 public class JeuDeCartesTest {
@@ -24,8 +24,6 @@ public class JeuDeCartesTest {
 
 	@Test
 	public void testBrasser() {
-
-		final JeuDeCartes jeuRef = new JeuDeCartes();
 	
 		JeuDeCartes.brasser();
 		boolean isAsc = true;
@@ -48,7 +46,6 @@ public class JeuDeCartesTest {
 	@Test
 	public void testPiger() {
 		 
-		final JeuDeCartes jeuRef = new JeuDeCartes();
 		int [] tab = JeuDeCartes.getPaquet();
 		int res;
 		

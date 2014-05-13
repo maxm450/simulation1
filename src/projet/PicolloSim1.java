@@ -8,8 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import util.Clavier;
-import util.Partie;
+import util.*;
+import partie.*;
 
 /**
  * @author Équipe Piccolo
