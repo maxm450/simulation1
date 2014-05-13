@@ -13,7 +13,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /*
- * Équipe Piccolo
+ * ï¿½quipe Piccolo
+ * Source des images pour les cartes Ã  jouer : http://www.jfitz.com/cards/
  */
 
 public class GUI {
