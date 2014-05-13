@@ -15,7 +15,7 @@ import util.Partie;
  * @author Équipe Piccolo
  * @version 1.0
  */
-public class Tp2 {
+public class PicolloSim1 {
 	// Amélioration apportée.
 	private static int montantJoueur = 100;
     private static boolean joueurGagne;    // si le joueur a gagné ou non la partie. 
@@ -373,8 +373,6 @@ public class Tp2 {
         	afficherFin();
         	supprimerSauvegarde();
         }
-        System.exit(-1);
-        
     } 
     
 }
